@@ -1080,6 +1080,12 @@ class XqFlash():
             if not rc:
                 die(f'Cannot change nvram parameters!')
 
+        if self.install_method == 400 and not self.img_stock:
+            if fw_img.cmd and self.install_fw_num and self.install_fw_num == 1:
+                print(f'WARNING: It is not safe to write initramfs image to partition "{fw_img.partname}"!')
+                print(f'RECOMMENDATION: Flash the stock firmware again to change the active UBI-partition.')
+                sys.exit((45)
+
         if fw_img.cmd:
             self.flash_data_to_mtd('firmware', fw_img, timeout = 60)
         
